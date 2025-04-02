@@ -8,7 +8,7 @@ RUN env CGO_ENABLED=0 \
     go build -v -trimpath -ldflags \
     "-s -w -X github.com/nezhahq/agent/pkg/monitor.Version=1.10.0"
 FROM alpine
-RUN apk add --no-cache util-linux tz-data
+RUN apk add --no-cache util-linux tzdata
 COPY --from=builder /root/agent/cmd/agent/agent /cgent
 ENV TZ=Asia/Shanghai \
     NEZHA_TLS=false \
