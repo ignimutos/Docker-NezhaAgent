@@ -21,10 +21,12 @@ docker run -d -v=/root/cgent/:/root/ \
     --restart=always \
     --net=host \
     --cap-add=NET_RAW \
-    -e SECRET=agentsecretkey \
-    -e SERVER=installhost \
-    -e TLS=true \
-    ghcr.io/yosebyte/cgent
+    -e NEZHA_SECRET=agentsecretkey \
+    -e NEZHA_SERVER=installhost \
+    -e NEZHA_TLS=true \
+    -e NEZHA_DEBUG=false \
+    -e NEZHA_DISABLE_AUTO_UPDATE=true
+    ghcr.io/ignimutos/cgent
 ```
 
 View the generated configuration:
@@ -35,16 +37,23 @@ cat /root/cgent/config.yml
 
 ## Configuration Options
 
-| Environment Variable | Description | Default |
-|---|---|---|
-| `SECRET` | Nezha agent secret key from dashboard | *Required* |
-| `SERVER` | Nezha dashboard hostname or IP | *Required* |
-| `TLS` | Enable/disable TLS connection | `false` |
+[See Official Document](https://nezha.wiki/en_US/configuration/agent.html#options)
+You can transfer offical config variable to Docker Environment:
+
+| Config Variable       | Environment Variable        | Default                     |
+| --------------------- | --------------------------- | --------------------------- |
+| `server`              | `NEZHA_SERSER`              | _required_                  |
+| `client_secret`       | `NEZHA_CLIENT_SECRET`       | _required_                  |
+| `uuid`                | `NEZHA_UUID`                | _fixed by your mac address_ |
+| `debug`               | `NEZHA_DEBUG`               | `true`                      |
+| `tls`                 | `NEZHA_TLS`                 | `false`                     |
+| `disable_auto_update` | `NEZHA_DISABLE_AUTO_UPDATE` | `false`                     |
+| `var`                 | `NEZHA_VAR`                 |                             |
 
 ## Important Notes
 
-- Each time the container creates a new configuration file, a different `UUID` is generated
-- Always backup `/root/cgent/config.yml` before upgrading the container
+- Must use `network_mode=host`
+- When you don't set `NEZHA_UUID` env, uuid will be generated automatically base on host machine network device mac address.
 - Find your `SECRET`, `SERVER`, and TLS settings in your Nezha dashboard configuration
 
 ## Nezha Dashboard Deployment (Optional)
