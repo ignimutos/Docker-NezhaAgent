@@ -42,7 +42,7 @@ You can transfer offical config variable to Docker Environment:
 
 | Config Variable       | Environment Variable        | Default                     |
 | --------------------- | --------------------------- | --------------------------- |
-| `server`              | `NEZHA_SERSER`              | _required_                  |
+| `server`              | `NEZHA_SERVER`              | _required_                  |
 | `client_secret`       | `NEZHA_CLIENT_SECRET`       | _required_                  |
 | `uuid`                | `NEZHA_UUID`                | _fixed by your mac address_ |
 | `debug`               | `NEZHA_DEBUG`               | `true`                      |
